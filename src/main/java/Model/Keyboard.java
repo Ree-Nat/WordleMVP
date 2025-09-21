@@ -4,10 +4,10 @@ import java.time.temporal.ValueRange;
 import java.util.HashMap;
 
 //class the uses models keyboard based on ascii
-public class KeyboardModel {
-    private HashMap<Character, LetterStatus> keyMap;
+public class Keyboard {
+    private final HashMap<Character, LetterStatus> keyMap;
 
-    public KeyboardModel() {
+    public Keyboard() {
 
         keyMap = new HashMap<Character, LetterStatus>();
 

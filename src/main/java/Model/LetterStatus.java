@@ -4,5 +4,6 @@ public enum LetterStatus{
     GREY,
     YELLOW,
     GREEN,
-    BLACK
+    BLACK,
+    BLANK
 }
