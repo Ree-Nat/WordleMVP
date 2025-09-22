@@ -10,18 +10,11 @@ public class GameController{
 
     public GameController(GameModel gameModel, Keyboard keyboard, WordleWord answer)
     {
-        while(true)
-        {
-            String input = askInput();
-            UserGuess = new UserGuess(input);
-
-
-        }
 
     }
 
 
-
+/**
     @Override
     public String askInput() {
         String c = "2313";

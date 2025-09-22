@@ -27,5 +27,40 @@ public class UserGuess extends WordleWord {
         matches = bool;
     }
 
+    //returns an array of status to put in gui
+    public HashMap<Integer, LetterStatus> compare(WordleAnswer answer)
+    {
+        HashMap<Integer, Character> guessMap = this.getStringMap();
+        HashMap<Integer, Character> answerMapClone =  new HashMap<>(answer.getStringMap());
+        HashMap<Integer, LetterStatus> result = new HashMap<>();
+        HashMap<Character, Integer> currentCount = answer.getEmptyWordCount();
+        HashMap<Character, Integer> answerLetterCount = answer.getAmountOfLetters();
+        for(int index = 0; index < guessMap.size(); index++)
+        {
+            Character guessLetter = guessMap.get(index+1);
+            Character answerLetter = answerMapClone.get(index+1);
+            if (guessLetter == answerLetter) {
+                int letterAmount = currentCount.get(guessLetter);
+                int maxLetterAmount =  answerLetterCount.get(guessLetter);
+                result.put(index, LetterStatus.GREEN);
+                currentCount.put(guessLetter, letterAmount+1);
+            }
+            else if(answerMapClone.containsValue(guessLetter))
+            {
+                int letterAmount = currentCount.get(guessLetter);
+                int maxLetterAmount =  answerLetterCount.get(guessLetter);
+                if(letterAmount < maxLetterAmount){
+                    result.put(index, LetterStatus.YELLOW);
+                    currentCount.put(guessLetter, letterAmount+1);}
+                else{ result.put(index,LetterStatus.BLACK);}
+            }
+            else
+            {
+                result.put(index, LetterStatus.BLACK);
+            }
+        }
+        return result;
+    }
+
 
 }
