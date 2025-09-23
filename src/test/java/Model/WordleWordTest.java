@@ -54,7 +54,7 @@ class WordleWordTest {
     @Test
     public void TestCompare()
     {
-        UserGuess guess = new UserGuess("ZLLLL");
+        UserGuess guess = new UserGuess("LILLY");
         //1-3 green 4 = yellow 5 = yellow
         WordleAnswer answer = new WordleAnswer("LILLY");
         LetterStatus[] correctSequence = new LetterStatus[]{
