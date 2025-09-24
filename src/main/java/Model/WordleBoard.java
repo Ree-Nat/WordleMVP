@@ -10,7 +10,7 @@ public class WordleBoard {
     ArrayList<String> wordGrid;
 
 
-    public WordleBoard(Keyboard keyboard)
+    public WordleBoard()
     {
         wordGrid = new ArrayList<String>();
     }

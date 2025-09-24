@@ -1,6 +1,7 @@
 package Model;
 import java.io.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -11,13 +12,14 @@ import com.google.gson.JsonParser;
 
 public class WordList {
 
-    String randomWord;
-    HashMap<Integer, String> wordMap;
-    Set<String> wordSet;
+    private HashMap<Integer, String> wordMap;
+    private Set<String> wordSet;
     private int seed;
     private int size;
 
     public WordList(String filePath) throws IOException {
+        wordMap = new HashMap<>();
+        wordSet = new HashSet<>();
         populateList(filePath);
     }
 
@@ -33,14 +35,17 @@ public class WordList {
         JsonObject obj = element.getAsJsonObject();
         wordSet = obj.keySet();
 
-        wordMap = new HashMap<>();
+        HashMap<Integer,String> tmpWordMap = new HashMap<>();
+
         int index = 1;
         for (String word : wordSet){
-            wordMap.put(index, word);
+            tmpWordMap.put(index, word);
+            index++;
         }
-        size = wordSet.size();
+        setWordMap(tmpWordMap);
+        this.size = wordSet.size();
 
-        br.close();
+
     }
 
     public Boolean exists(UserGuess word)
@@ -57,13 +62,23 @@ public class WordList {
     public String getRandomWord(long seed)
     {
         Random rand = new Random(seed);
-        randomWord = wordMap.get(rand.nextInt(size));
-        return randomWord;
+        int randomInt = rand.nextInt(size - 1 + 1) + 1;
+        return wordMap.get(randomInt);
     }
 
     public int getSize()
     {
         return size;
+    }
+
+    public void setWordMap(HashMap<Integer, String> wordMap)
+    {
+        this.wordMap = wordMap;
+    }
+
+    public void setWordSet(Set<String> wordSet)
+    {
+        this.wordSet = wordSet;
     }
 
 }
