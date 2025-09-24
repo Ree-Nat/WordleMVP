@@ -19,8 +19,7 @@ public class GameModel{
 
     public boolean reachMaxGuess()
     {
-        int MAX_GUESS = 6;
-        return current_guesses == MAX_GUESS;
+        return current_guesses == 6;
     }
 
 }

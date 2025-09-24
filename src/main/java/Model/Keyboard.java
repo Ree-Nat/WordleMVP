@@ -33,6 +33,32 @@ public class Keyboard {
         keyMap.replace(letter, status);
     }
 
+    public void updateKeyboardStatus(HashMap<Integer, LetterStatus> colorMap, UserGuess userGuess)
+    {
+        String guessString = userGuess.getString();
+        for(int index = 0; index < colorMap.size(); index++)
+        {
+            Character currentLetter= guessString.charAt(index);
+            LetterStatus keyLetterStatus = keyMap.get(currentLetter);
+            LetterStatus outputLetterStatus = colorMap.get(index);
+
+            if((keyLetterStatus == LetterStatus.YELLOW || keyLetterStatus == LetterStatus.GREY)
+            && (outputLetterStatus == LetterStatus.GREEN || outputLetterStatus == LetterStatus.YELLOW))
+                {
+                    this.markStatus(currentLetter, outputLetterStatus);
+                }
+            else if (keyLetterStatus == LetterStatus.GREEN)
+            {
+                this.markStatus(currentLetter, LetterStatus.GREEN);
+            }
+            else
+            {
+                this.markStatus(currentLetter, outputLetterStatus);
+            }
+        }
+
+    }
+
     public HashMap<Character, LetterStatus> getKeyMap()
     {
         return keyMap;

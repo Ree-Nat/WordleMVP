@@ -17,7 +17,7 @@ public class WordList {
     private int seed;
     private int size;
 
-    public WordList(int seed, String filePath) throws IOException {
+    public WordList(String filePath) throws IOException {
         populateList(filePath);
     }
 
@@ -46,11 +46,15 @@ public class WordList {
     public Boolean exists(UserGuess word)
     {
         String guessWord = word.getString();
-
         return wordSet.contains(guessWord);
     }
 
-    public String getRandomWord(int seed)
+    public Boolean exists(String word)
+    {
+        return wordSet.contains(word);
+    }
+
+    public String getRandomWord(long seed)
     {
         Random rand = new Random(seed);
         randomWord = wordMap.get(rand.nextInt(size));

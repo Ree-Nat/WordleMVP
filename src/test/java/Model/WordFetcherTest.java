@@ -17,14 +17,24 @@ class WordFetcherTest {
     @Test
     void PopulateWordList() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
-        WordList fetcherGenerator = new WordList(2313, filepath);
+        WordList fetcherGenerator = new WordList(filepath);
     }
 
     void CheckWordMapSize() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
-        WordList fetcherGenerator = new WordList(2313, filepath);
+        WordList fetcherGenerator = new WordList(filepath);
         int wordListSize = fetcherGenerator.getSize();
         assertEquals(15917, wordListSize);
+    }
+
+    @Test
+    void CheckWordExists() throws IOException {
+        String filepath = "src/main/resources/Valid_Wordle_Words.json";
+        WordList fetcherGenerator = new WordList(filepath);
+        UserGuess guessWord = new UserGuess("rabid");
+        boolean exists = fetcherGenerator.exists(guessWord);
+        assertTrue(exists);
+
     }
 
 }
