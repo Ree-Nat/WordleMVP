@@ -1,0 +1,16 @@
+
+.label{
+    -fx-background-color: #a8a8a8;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 50px;
+    -fx-font-family: Arial;
+    -fx-text-alignment: center;
+}
+
+#letterbox
+{
+    -fx-background-color: #a8a8a8;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+}

@@ -6,5 +6,8 @@ module org.example.wordlemvp {
 
 
     opens org.example.wordlemvp to javafx.fxml;
-    exports org.example.wordlemvp;
+    exports org.example.wordlemvp to javafx.fxml;
+    exports View to  javafx.graphics;
+    //exports Controller to javafx.graphics;;
+    opens Controller to javafx.fxml;
 }
