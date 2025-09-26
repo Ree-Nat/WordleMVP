@@ -2,27 +2,39 @@ package View;
 
 
 import Model.LetterStatus;
+import javafx.geometry.Pos;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+
+
 //Creates java fx view for letterbox
 public class LetterBox {
 
+    StackPane stackpane = new StackPane();
+    Rectangle letterBox = new Rectangle(10,10);
     private final Text textBox = new Text();
+
     public LetterBox(Character letter, LetterStatus letterStatus) {
+
+        stackpane.getChildren().addAll(letterBox, textBox);
+        letterBox.setFill(Color.GREY);
+        stackpane.setAlignment(Pos.CENTER);
+        textBox.getStyleClass().add("letterbox_text");
         textBox.setText(letter.toString());
-        textBox.getStyleClass().add("letterBox");
         switch (letterStatus) {
-            case GREEN ->  textBox.setStyle("-fx-background-color: green");
-            case YELLOW -> textBox.setStyle("-fx-background-color: yellow");
-            case GREY ->  textBox.setStyle("-fx-background-color: grey");
-            case BLACK ->  textBox.setStyle("-fx-background-color: #404040FF");
+            case GREEN ->  letterBox.setStyle("-fx-fill: #097809");
+            case YELLOW -> letterBox.setStyle("-fx-fill: #efd24b");
+            case GREY ->  letterBox.setStyle("-fx-fill: #919191");
+            case BLACK ->  letterBox.setStyle("-fx-fill: #202020");
         }
     }
 
-    public Text getLetterBox() {
-        return textBox;
+    public StackPane getLetterBox() {
+        return stackpane;
     }
 }

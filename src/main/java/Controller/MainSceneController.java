@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.awt.event.ActionEvent;
@@ -47,7 +48,7 @@ public class MainSceneController {
     private void populateGrid(int row, int col, Character letter)
     {
         LetterBox letterBox = new LetterBox(letter, LetterStatus.GREY);
-        Text newTextLetter = letterBox.getLetterBox();
+        StackPane newTextLetter = letterBox.getLetterBox();
         wordGridPane.add(newTextLetter, col, row);
     }
 }
