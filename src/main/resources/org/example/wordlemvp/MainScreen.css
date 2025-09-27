@@ -12,8 +12,34 @@
 
 .buttonClass
 {
-
+    -fx-text-fill: White;
+    -fx-font: "Clear Sans";
     -fx-color: #cdcdcd;
+    -fx-padding: 10;
+}
+
+.YellowStatus
+{
+    -fx-text-fill: #ffffff;
+    -fx-font: "Clear Sans";
+    -fx-color: #9f9b1d;
+    -fx-padding: 10;
+}
+
+.GreenStatus
+{
+    -fx-text-fill: #ffffff;
+    -fx-font: "Clear Sans";
+    -fx-color: #3b9127;
+    -fx-padding: 10;
+}
+
+
+.BlackStatus
+{
+    -fx-text-fill: White;
+    -fx-font: "Clear Sans";
+    -fx-color: #2b2b2b;
     -fx-padding: 10;
 }
 

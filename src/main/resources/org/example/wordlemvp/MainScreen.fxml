@@ -14,9 +14,9 @@
    <children>
       <BorderPane layoutX="-3.0" prefHeight="718.0" prefWidth="1292.0">
          <bottom>
-            <VBox alignment="CENTER" prefHeight="176.0" prefWidth="1292.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="keyboardBox" alignment="CENTER" prefHeight="176.0" prefWidth="1292.0" BorderPane.alignment="CENTER" >
                <children>
-                  <HBox fx:id="key_row_1" alignment="CENTER" prefHeight="100.0" prefWidth="1192.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1192.0">
                      <children>
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="Q" />
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="W" />
@@ -25,11 +25,11 @@
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="T" />
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="Y" />
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="U" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="I" />
+                        <Button  focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="I" />
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="O" />
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="P" />
                      </children></HBox>
-                  <HBox fx:id="key_row_2" alignment="CENTER" prefHeight="82.0" prefWidth="1192.0">
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1192.0">
                      <children>
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="A" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="S" />
@@ -41,11 +41,11 @@
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="K" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="L" />
                      </children></HBox>
-                  <HBox fx:id="key_row_3" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="enterButton" stylesheets="@MainScreen.css" text="Enter" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="Z" />
-                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="W" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="X" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="C" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="V" />
                         <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#buttonListener" styleClass="buttonClass" stylesheets="@MainScreen.css" text="B" />

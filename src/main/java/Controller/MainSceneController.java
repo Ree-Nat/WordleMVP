@@ -11,7 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 import javax.print.DocFlavor;
@@ -22,12 +24,12 @@ public class MainSceneController {
 
     @FXML
     public GridPane wordGridPane;
+    @FXML
+    private VBox keyboardBox;
 
     List<LetterBox> letterBoxList = new ArrayList<>();
     private int currentRow = 1;
     private WordleWord currentUserInput;
-
-
     private final Keyboard keyboard;
     private final WordleBoard wordleBoard;
     private final GameModel gameModel;
@@ -35,6 +37,8 @@ public class MainSceneController {
     private Boolean winStatus;
     private final WordleAnswer wordleAnswer;
     private String userInput;
+    private HashMap<Character, Button> buttonMapping;
+
 
 
     public MainSceneController() throws IOException {
@@ -43,7 +47,6 @@ public class MainSceneController {
         keyboard = new Keyboard();
         wordRepository = new WordList("src/main/resources/Valid_Wordle_Words.json");
         gameModel = new GameModel();
-
         long seed= System.currentTimeMillis();
         Random random = new Random(seed);
         long randomSeed = random.nextLong();
@@ -55,6 +58,7 @@ public class MainSceneController {
     public void initialize(){
         wordGridPane.setFocusTraversable(true);
         wordGridPane.requestFocus();
+        this.buttonMapping = this.getButtonMapping();
     }
 
     @FXML
@@ -139,7 +143,33 @@ public class MainSceneController {
             wordGridPane.add(newLetterBox.getLetterBoxContainer(), index-1, currentRow-1);
             index+=1;
         }
+        recolorKeyboard();
         return winStatus;
+    }
+
+    private void recolorKeyboard()
+    {
+        HashMap<Character, LetterStatus> keyboardMap = keyboard.getKeyMap();
+        Set<Character> characterSet = keyboardMap.keySet();
+        for(Character character: characterSet)
+        {
+            LetterStatus character_status = keyboardMap.get(character);
+            Button currentButton = buttonMapping.get(character);
+            currentButton.getStyleClass().removeAll();
+            if(character_status == LetterStatus.GREEN)
+            {
+                currentButton.getStyleClass().add("GreenStatus");
+            }
+            else if(character_status == LetterStatus.YELLOW)
+            {
+                currentButton.getStyleClass().add(("YelloStatus"));
+            }
+            else if(character_status == LetterStatus.BLACK)
+            {
+                currentButton.getStyleClass().add("BlackStatus");
+            }
+
+        }
     }
 
     private boolean checkWin(HashMap<Integer, LetterStatus> output)
@@ -182,6 +212,32 @@ public class MainSceneController {
         nodeList.remove(removedChild_pane);
         }
 
+    /**
+     * Gets button references of UI to make it easier to change color of keyboard
+     */
+    private HashMap<Character, Button> getButtonMapping()
+    {
+        int rows = 3;
+        HashMap<Character, Button> buttonReferenceMap = new HashMap<>();
+        ObservableList<Node> nodeItems = keyboardBox.getChildren();
+        for(int x = 0; x < rows; x++)
+        {
+            HBox HBoxItems = (HBox) nodeItems.get(x);
+            ObservableList<Node> buttonRowList = HBoxItems.getChildren();
+            for(int y = 0; y < buttonRowList.size(); y++)
+            {
+                Object buttonObject = buttonRowList.get(y);
+                Button button = (Button) buttonObject;
+                String buttonText = button.getText();
+                if(buttonText.length() == 1)
+                {
+                    Character buttonChar = buttonText.charAt(0);
+                    buttonReferenceMap.put(buttonChar, button);
+                }
+            }
+        }
+        return buttonReferenceMap;
+    }
 
 }
 

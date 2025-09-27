@@ -36,6 +36,7 @@ public class Keyboard {
     public void updateKeyboardStatus(HashMap<Integer, LetterStatus> colorMap, UserGuess userGuess)
     {
         String guessString = userGuess.getString();
+        guessString = guessString.toUpperCase();
         for(int index = 0; index < colorMap.size(); index++)
         {
             Character currentLetter= guessString.charAt(index);

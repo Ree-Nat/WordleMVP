@@ -6,8 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class FXWordleGame extends Application {
@@ -29,6 +31,7 @@ public class FXWordleGame extends Application {
             newScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
             primaryStage.setWidth(1920);
             primaryStage.setHeight(1080);
+            hbox.setBackground(Background.fill(Color.GREY));
             primaryStage.setTitle("Wordle MVP");
             //create game object.
             primaryStage.show();
