@@ -2,22 +2,29 @@ package View;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class FXWordleGame extends Application {
 
 
-    Group rootNode = new Group();
+    HBox hbox = new HBox();
 
     public void start(Stage primaryStage) throws Exception {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/wordlemvp/MainScreen.fxml"));
             Parent mainScreen = loader.load();
-            Scene newScene = new Scene(mainScreen);
+
+            hbox.getChildren().add(mainScreen);
+            HBox.setHgrow(hbox, Priority.ALWAYS);
+            Scene newScene = new Scene(hbox);
+            hbox.setAlignment(Pos.CENTER);
             primaryStage.setScene(newScene);
             newScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
 

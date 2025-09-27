@@ -1,4 +1,7 @@
 
 .letterbox_text{
   -fx-fill: White;
+    -fx-font-size: 20;
+    -fx-font: "Clear Sans";
+    -fx-alignment: "Center";
 }

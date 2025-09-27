@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 public class LetterBox {
 
     StackPane stackpane = new StackPane();
-    Rectangle letterBox = new Rectangle(10,10);
+    Rectangle letterBox = new Rectangle(50,50);
     private final Text textBox = new Text();
 
     public LetterBox(Character letter, LetterStatus letterStatus) {

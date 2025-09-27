@@ -5,6 +5,7 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -20,7 +21,7 @@ public class MainSceneController {
 
     @FXML
     public GridPane wordGridPane;
-    List<Character> wordList = new ArrayList<>();
+    List<LetterBox> wordList = new ArrayList<>();
     private int currentRow = 1;
 
     @FXML
@@ -32,23 +33,40 @@ public class MainSceneController {
     @FXML
     public void listenForInput(KeyEvent keyEvent) {
         KeyCode keyCode = keyEvent.getCode();
-        if (keyCode.isLetterKey() && wordList.size() <=4) {
-            System.out.println(keyEvent.getCode());
-            wordList.add(keyCode.getChar().charAt(0));
-            populateGrid(currentRow-1, wordList.size()-1, keyCode.getChar().charAt(0));
-            System.out.println(wordList);
+        if(keyCode == KeyCode.BACK_SPACE && !wordList.isEmpty() && wordList.size() <= 5)
+        {
+            removeChild(currentRow-1, wordList.size()-1);
         }
-        else if(keyCode == KeyCode.ENTER && wordList.size() >= 5
+
+        if (keyCode.isLetterKey() && wordList.size() <=4) {
+            Character currentLetter =  keyCode.getChar().charAt(0);
+            LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
+            wordList.add(letterBox);
+            populateGrid(currentRow-1, wordList.size()-1, letterBox);
+        }
+        if(keyCode == KeyCode.ENTER && wordList.size() == 5
         && currentRow < 6) {
             currentRow+=1;
             wordList.clear();
         }
+
     }
 
-    private void populateGrid(int row, int col, Character letter)
+    private void populateGrid(int row, int col, LetterBox letterBox)
     {
-        LetterBox letterBox = new LetterBox(letter, LetterStatus.GREY);
+
         StackPane newTextLetter = letterBox.getLetterBox();
+        newTextLetter.getStyleClass().add("letter-box");
         wordGridPane.add(newTextLetter, col, row);
     }
-}
+
+    private void removeChild(int row, int col)
+    {
+        LetterBox removedChild = wordList.removeLast();
+        StackPane removedChild_pane = removedChild.getLetterBox();
+        ObservableList<Node> nodeList = wordGridPane.getChildren();
+        nodeList.remove(removedChild_pane);
+        }
+
+    }
+
