@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,9 +16,43 @@
          <bottom>
             <VBox alignment="CENTER" prefHeight="176.0" prefWidth="1292.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox fx:id="key_row_1" prefHeight="100.0" prefWidth="200.0" />
-                  <HBox fx:id="key_row_2" prefHeight="30.0" prefWidth="227.0" />
-                  <HBox fx:id="key_row_3" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox fx:id="key_row_1" alignment="CENTER" prefHeight="100.0" prefWidth="1192.0">
+                     <children>
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="Q" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="W" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="E" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="R" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="T" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="Y" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="U" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="I" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="O" />
+                        <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="P" />
+                     </children></HBox>
+                  <HBox fx:id="key_row_2" alignment="CENTER" prefHeight="82.0" prefWidth="1192.0">
+                     <children>
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="A" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="S" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="D" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="F" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="G" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="H" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="J" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="K" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="L" />
+                     </children></HBox>
+                  <HBox fx:id="key_row_3" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" styleClass="enterButton" stylesheets="@MainScreen.css" text="Enter" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="Z" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="W" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="C" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="V" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="B" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="N" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" stylesheets="@MainScreen.css" text="M" />
+                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" styleClass="backButton" stylesheets="@MainScreen.css" text="BCK" />
+                     </children></HBox>
                </children>
                <padding>
                   <Insets bottom="50.0" left="50.0" right="50.0" />
@@ -25,7 +60,7 @@
             </VBox>
          </bottom>
          <center>
-            <GridPane fx:id="wordGridPane" alignment="TOP_CENTER" gridLinesVisible="true" onKeyPressed="#listenForInput" prefHeight="910.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+            <GridPane fx:id="wordGridPane" alignment="TOP_CENTER" focusTraversable="true" gridLinesVisible="true" onKeyPressed="#listenForInput" prefHeight="910.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />

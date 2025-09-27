@@ -5,3 +5,18 @@
     -fx-font: "Clear Sans";
     -fx-alignment: "Center";
 }
+
+.button
+{
+    -fx-fill: grey;
+}
+
+.enterButton
+{
+
+}
+
+.backButton
+{
+
+}

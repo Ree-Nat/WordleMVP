@@ -32,7 +32,7 @@ public class MainSceneController {
     private final GameModel gameModel;
     private final WordList wordRepository; //letterBoxList;
     private Boolean winStatus;
-    private WordleAnswer wordleAnswer;
+    private final WordleAnswer wordleAnswer;
     private String userInput;
 
 
@@ -87,11 +87,13 @@ public class MainSceneController {
         List<LetterBox> outputLetterBox = this.letterBoxList;
         UserGuess newUserGuess = new UserGuess(userInput);
         HashMap<Integer,LetterStatus> color_map = newUserGuess.compare(wordleAnswer);
+        keyboard.updateKeyboardStatus(color_map, newUserGuess);
+        String processedInput = userInput.toUpperCase();
         winStatus = checkWin(color_map);
         int index = 1;
         for(LetterBox LetterBoxNode : letterBoxList)
         {
-            Character currentCharacter = userInput.charAt(index-1);
+            Character currentCharacter = processedInput.charAt(index-1);
             LetterBox newLetterBox = new LetterBox(currentCharacter, color_map.get(index-1));
             int removedPlace = wordGridPane.getChildren().indexOf(LetterBoxNode.getLetterBoxContainer());
             wordGridPane.getChildren().remove(LetterBoxNode.getLetterBoxContainer());
