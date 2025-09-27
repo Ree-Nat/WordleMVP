@@ -162,7 +162,7 @@ public class MainSceneController {
             }
             else if(character_status == LetterStatus.YELLOW)
             {
-                currentButton.getStyleClass().add(("YelloStatus"));
+                currentButton.getStyleClass().add(("YellowStatus"));
             }
             else if(character_status == LetterStatus.BLACK)
             {

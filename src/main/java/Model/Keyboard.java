@@ -43,16 +43,17 @@ public class Keyboard {
             LetterStatus keyLetterStatus = keyMap.get(currentLetter);
             LetterStatus outputLetterStatus = colorMap.get(index);
 
-            if((keyLetterStatus == LetterStatus.YELLOW || keyLetterStatus == LetterStatus.GREY)
+
+            if((keyLetterStatus == LetterStatus.GREY)
             && (outputLetterStatus == LetterStatus.GREEN || outputLetterStatus == LetterStatus.YELLOW))
                 {
                     this.markStatus(currentLetter, outputLetterStatus);
                 }
-            else if (keyLetterStatus == LetterStatus.GREEN)
+            else if(outputLetterStatus == LetterStatus.GREEN)
             {
                 this.markStatus(currentLetter, LetterStatus.GREEN);
             }
-            else
+            else if(outputLetterStatus == LetterStatus.BLACK && keyLetterStatus != LetterStatus.GREEN || keyLetterStatus!= LetterStatus.YELLOW)
             {
                 this.markStatus(currentLetter, outputLetterStatus);
             }
