@@ -1,6 +1,6 @@
 package org.example.wordlemvp;
 
-import Controller.GameController;
+//import Controller.GameController;
 import Model.GameModel;
 import View.FXWordleGame;
 import javafx.application.Application;

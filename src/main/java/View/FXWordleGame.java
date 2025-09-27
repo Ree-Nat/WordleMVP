@@ -18,20 +18,19 @@ public class FXWordleGame extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         try {
+            //load windows
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/wordlemvp/MainScreen.fxml"));
             Parent mainScreen = loader.load();
-
             hbox.getChildren().add(mainScreen);
             HBox.setHgrow(hbox, Priority.ALWAYS);
             Scene newScene = new Scene(hbox);
             hbox.setAlignment(Pos.CENTER);
             primaryStage.setScene(newScene);
             newScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
-
             primaryStage.setWidth(1920);
             primaryStage.setHeight(1080);
             primaryStage.setTitle("Wordle MVP");
-
+            //create game object.
             primaryStage.show();
         }
         catch (Exception e) {

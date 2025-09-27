@@ -1,3 +1,4 @@
+/*
 package Controller;
 
 import Model.*;
@@ -18,6 +19,9 @@ public class GameController {
     private final GameModel gameModel;
     private final WordList wordList;
     private Boolean winStatus;
+    private WordleAnswer wordleAnswer;
+    private String userInput;
+
 
 
     public GameController(GameModel gameModel) throws IOException {
@@ -35,12 +39,14 @@ public class GameController {
         long seed= System.currentTimeMillis();
         Random random = new Random(seed);
         String randomWord = wordList.getRandomWord(seed);
-        WordleAnswer wordleAnswer = new WordleAnswer(randomWord);
+        wordleAnswer = new WordleAnswer(randomWord);
         System.out.println("WELCOME TO WORDLE MVP GUESS 6 WORDS");
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         while(!gameModel.reachMaxGuess() && winStatus == false)
         {
-            UserGuess userGuess = getInput(scanner);
+
+            //line waiting for input from MainSceneController
+
             wordleBoard.addWord(userGuess);
             HashMap<Integer, LetterStatus> resultOutput = userGuess.compare(wordleAnswer);
             winStatus = checkWin(resultOutput);
@@ -48,14 +54,26 @@ public class GameController {
             System.out.println(userGuess.toString());
             System.out.println(resultOutput.toString());
             gameModel.increaseGuess();
+
+            //passes it back to MainSceneController
         }
+
         if(winStatus == false) {
             System.out.println("GAME OVER, WORD IS " + wordleAnswer.getString());
         }
         else {
             System.out.println("YOU WON, WORD IS " + wordleAnswer.getString());
         }
-        scanner.close();
+        //scanner.close();
+    }
+
+
+    public void processGuest()
+
+
+    public WordleAnswer getWordleAnswer()
+    {
+        return this.wordleAnswer;
     }
 
     private boolean checkWin(HashMap<Integer, LetterStatus> output)
@@ -65,6 +83,8 @@ public class GameController {
         return !letterList.contains(LetterStatus.YELLOW) && !letterList.contains(LetterStatus.BLACK);
     }
 
+    //console app input
+    /*
     private UserGuess getInput(Scanner scanner)
     {
         boolean isValid = false;
@@ -86,4 +106,6 @@ public class GameController {
        }while(!isValid);
         return new UserGuess(input);
     }
+
 }
+   */

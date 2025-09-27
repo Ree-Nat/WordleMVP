@@ -34,7 +34,9 @@ public class LetterBox {
         }
     }
 
-    public StackPane getLetterBox() {
-        return stackpane;
+    public Character getLetterBoxCharacter() {
+        return textBox.getText().charAt(0);
     }
+
+    public StackPane getLetterBoxContainer() {return stackpane;}
 }
