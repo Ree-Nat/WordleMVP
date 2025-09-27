@@ -6,9 +6,15 @@
     -fx-alignment: "Center";
 }
 
-.button
+
+
+
+
+.buttonClass
 {
-    -fx-fill: grey;
+
+    -fx-color: #cdcdcd;
+    -fx-padding: 10;
 }
 
 .enterButton
@@ -18,5 +24,4 @@
 
 .backButton
 {
-
 }

@@ -7,13 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.util.*;
 
@@ -82,6 +83,44 @@ public class MainSceneController {
         }
     }
 
+    @FXML
+    public void buttonListener(ActionEvent actionEvent) {
+        Object buttonSource = actionEvent.getSource();
+        Button button = (Button) buttonSource;
+        String buttonText = button.getText();
+        KeyCode keyCode;
+        if(buttonText.equals("Enter"))
+        {
+            keyCode =KeyCode.valueOf("ENTER");
+        } else if (buttonText.equals("BCK")) {
+            keyCode = KeyCode.valueOf("BACK_SPACE");
+        }
+        else{keyCode = KeyCode.valueOf(button.getText());}
+
+
+        if(keyCode == KeyCode.BACK_SPACE && !letterBoxList.isEmpty() && letterBoxList.size() <= 5)
+        {
+            removeChild(currentRow-1, letterBoxList.size()-1);
+        }
+
+        if (keyCode.isLetterKey() && letterBoxList.size() <=4) {
+            Character currentLetter =  keyCode.getChar().charAt(0);
+            LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
+            letterBoxList.add(letterBox);
+            populateGrid(currentRow-1, letterBoxList.size()-1, letterBox);
+        }
+        if(keyCode == KeyCode.ENTER && letterBoxList.size() == 5
+                && currentRow <= 6) {
+            String userInput = getUserInput(letterBoxList);
+            userInput = userInput.toLowerCase();
+            if(wordRepository.exists(userInput) == true) {
+                winStatus = processInput(userInput);
+                currentRow += 1;
+                letterBoxList.clear();
+            }
+        }
+    }
+
     private boolean processInput(String userInput)
     {
         List<LetterBox> outputLetterBox = this.letterBoxList;
@@ -109,7 +148,6 @@ public class MainSceneController {
         List<LetterStatus> letterList = new ArrayList<>(Arrays.asList(colors));
         return !letterList.contains(LetterStatus.YELLOW) && !letterList.contains(LetterStatus.BLACK);
     }
-
 
 
     public void checkGameStatus()
@@ -143,5 +181,7 @@ public class MainSceneController {
         ObservableList<Node> nodeList = wordGridPane.getChildren();
         nodeList.remove(removedChild_pane);
         }
-    }
+
+
+}
 
