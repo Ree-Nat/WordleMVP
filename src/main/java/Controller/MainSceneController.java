@@ -108,7 +108,7 @@ public class MainSceneController {
                 letterBoxList.clear();
             }
         }
-        if(wordleBoard.isFull())
+        if(wordleBoard.isFull() || winStatus == true)
         {
             System.out.println("im full");
             switchEndScene(winStatus);
@@ -149,7 +149,7 @@ public class MainSceneController {
         HashMap<Integer,LetterStatus> color_map = newUserGuess.compare(wordleAnswer);
         keyboard.updateKeyboardStatus(color_map, newUserGuess);
         String processedInput = userInput.toUpperCase();
-        winStatus = checkWin(color_map);
+        winStatus = newUserGuess.equals(wordleAnswer);
         int index = 1;
         for(LetterBox LetterBoxNode : letterBoxList)
         {

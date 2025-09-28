@@ -17,9 +17,12 @@ public class UserGuess extends WordleWord {
         return input;
     }
 
-    public boolean isMatch()
+    public boolean equals(WordleAnswer answer)
     {
-        return matches;
+        String answerWord = answer.getString();
+        String guessWord = this.getString();
+
+        return answerWord.equals(guessWord);
     }
 
     public void setMatches(boolean bool)
