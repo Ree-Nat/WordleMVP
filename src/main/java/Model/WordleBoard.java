@@ -33,6 +33,11 @@ public class WordleBoard {
         }
     }
 
+    public void resetBoard()
+    {
+        wordGrid.clear();
+    }
+
     public boolean isFull()
     {
         return wordGrid.size() == 6;

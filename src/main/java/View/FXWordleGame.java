@@ -31,7 +31,7 @@ public class FXWordleGame extends Application {
             newScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
             primaryStage.setWidth(1920);
             primaryStage.setHeight(1080);
-            hbox.setBackground(Background.fill(Color.GREY));
+            hbox.setBackground(Background.fill(Color.web("#292929")));
             primaryStage.setTitle("Wordle MVP");
             //create game object.
             primaryStage.show();

@@ -35,9 +35,11 @@ public class MainSceneController {
     private final GameModel gameModel;
     private final WordList wordRepository; //letterBoxList;
     private Boolean winStatus;
-    private final WordleAnswer wordleAnswer;
+    private WordleAnswer wordleAnswer;
     private String userInput;
     private HashMap<Character, Button> buttonMapping;
+    private final MainSceneController mainSceneController;
+    private long randomSeed;
 
 
 
@@ -47,9 +49,10 @@ public class MainSceneController {
         keyboard = new Keyboard();
         wordRepository = new WordList("src/main/resources/Valid_Wordle_Words.json");
         gameModel = new GameModel();
+        this.mainSceneController = this;
         long seed= System.currentTimeMillis();
         Random random = new Random(seed);
-        long randomSeed = random.nextLong();
+        randomSeed = random.nextLong();
         String randomWord = wordRepository.getRandomWord(randomSeed);
         this.wordleAnswer = new WordleAnswer(randomWord);
     }
@@ -82,6 +85,44 @@ public class MainSceneController {
         else{keyCode = KeyCode.valueOf(button.getText());}
 
         processListener(keyCode);
+    }
+
+
+    public void restartScene()
+    {
+        System.out.println(wordGridPane.getChildren());
+        ObservableList<Node> gridNodes = wordGridPane.getChildren();
+        // safe removal
+        wordGridPane.getChildren().removeIf(item -> item instanceof StackPane);
+        for(int i = 0; i < letterBoxList.toArray().length; i++){
+            letterBoxList.removeLast();
+        }
+        reRollWordleWord();
+        resetUIKeyboardColor();
+        keyboard.resetKeyboardStatus();
+        wordleBoard.resetBoard();
+        currentRow = 1;
+    }
+
+    private void reRollWordleWord()
+    {
+        Random randomGenerator = new Random();
+        Long randomLong = randomGenerator.nextLong();
+        String newStringAnswer = wordRepository.getRandomWord(randomLong);
+        wordleAnswer = new WordleAnswer(newStringAnswer);
+        winStatus = false;
+
+    }
+
+    private void resetUIKeyboardColor()
+    {
+
+       for(Button button: buttonMapping.values())
+       {
+           button.getStyleClass().clear();
+           button.getStyleClass().add("button");
+           button.getStyleClass().add("buttonClass");
+       }
     }
 
     private void processListener(KeyCode keyCode) throws IOException {
@@ -129,8 +170,13 @@ public class MainSceneController {
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
 
         GameFinishedDialogController finishedDialogController = loader.getController();
+
+
         Text winStatusText = finishedDialogController.getGameStatusText();
         Text correctWordleWord = finishedDialogController.getWordAnswerText();
+        finishedDialogController.setMainScreenController(mainSceneController);
+        finishedDialogController.setStage(secondaryStage);
+
         correctWordleWord.setText("Word was " + wordleAnswer.getString());
         if(winStatus == true)
         {
@@ -175,14 +221,20 @@ public class MainSceneController {
             currentButton.getStyleClass().removeAll();
             if(character_status == LetterStatus.GREEN)
             {
+                currentButton.getStyleClass().clear();
+                currentButton.getStyleClass().add("button");
                 currentButton.getStyleClass().add("GreenStatus");
             }
             else if(character_status == LetterStatus.YELLOW)
             {
+                currentButton.getStyleClass().clear();
+                currentButton.getStyleClass().add("button");
                 currentButton.getStyleClass().add(("YellowStatus"));
             }
             else if(character_status == LetterStatus.BLACK)
             {
+                currentButton.getStyleClass().clear();
+                currentButton.getStyleClass().add("button");
                 currentButton.getStyleClass().add("BlackStatus");
             }
 
@@ -194,12 +246,6 @@ public class MainSceneController {
         LetterStatus[] colors = LetterStatus.values();
         List<LetterStatus> letterList = new ArrayList<>(Arrays.asList(colors));
         return !letterList.contains(LetterStatus.YELLOW) && !letterList.contains(LetterStatus.BLACK);
-    }
-
-
-    public void checkGameStatus()
-    {
-
     }
 
 
@@ -256,10 +302,7 @@ public class MainSceneController {
         return buttonReferenceMap;
     }
 
-    private void restartScene()
-    {
 
-    }
 
     private void saveSession()
     {

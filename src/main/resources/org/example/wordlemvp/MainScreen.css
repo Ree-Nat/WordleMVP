@@ -8,13 +8,11 @@
 
 
 
-
-
 .buttonClass
 {
-    -fx-text-fill: White;
+    -fx-text-fill: #ffffff;
     -fx-font: "Clear Sans";
-    -fx-color: #cdcdcd;
+    -fx-color: #454545;
     -fx-padding: 10;
 }
 
