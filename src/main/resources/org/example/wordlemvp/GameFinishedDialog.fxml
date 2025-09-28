@@ -11,20 +11,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameFinishedDialogController">
    <children>
-      <VBox prefHeight="194.0" prefWidth="411.0">
+      <VBox alignment="CENTER" prefHeight="194.0" prefWidth="411.0">
          <children>
             <Separator opacity="0.0" prefHeight="93.0" prefWidth="446.0" />
             <VBox prefHeight="164.0" prefWidth="446.0">
                <children>
-                  <Text fx:id="gameStatus" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Status" textAlignment="CENTER" wrappingWidth="436.06959533691406">
+                  <Text id="gameStatusText" fx:id="gameStatusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Status" textAlignment="CENTER" wrappingWidth="436.06959533691406">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Text>
-                  <Text fx:id="trueWordMEssage" strokeType="OUTSIDE" strokeWidth="0.0" text="Word was:" textAlignment="CENTER" wrappingWidth="418.04059982299805" />
+                  <Text id="wordAnswerText" fx:id="wordAnswerText" strokeType="OUTSIDE" strokeWidth="0.0" text="Word was:" textAlignment="CENTER" wrappingWidth="418.04059982299805" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -39,7 +38,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Restart Game" GridPane.columnIndex="1" />
+                  <Button id="restartButton" mnemonicParsing="false" text="Restart Game" GridPane.columnIndex="1" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

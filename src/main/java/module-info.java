@@ -3,6 +3,7 @@ module org.example.wordlemvp {
     requires javafx.fxml;
     requires java.desktop;
     requires com.google.gson;
+    requires javafx.graphics;
     //requires org.example.wordlemvp;
 
 

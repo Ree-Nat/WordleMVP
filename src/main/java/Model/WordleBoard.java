@@ -1,9 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 public class WordleBoard {
     int MAX_ROWS = 6;
@@ -36,9 +33,9 @@ public class WordleBoard {
         }
     }
 
-
-
-
-
+    public boolean isFull()
+    {
+        return wordGrid.size() == 6;
+    }
 
 }

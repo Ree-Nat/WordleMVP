@@ -1,22 +1,22 @@
 package Controller;
 import Model.*;
 import View.LetterBox;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
-import javax.print.DocFlavor;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -62,33 +62,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void listenForInput(KeyEvent keyEvent) {
+    public void listenForInput(KeyEvent keyEvent) throws IOException {
         KeyCode keyCode = keyEvent.getCode();
-        if(keyCode == KeyCode.BACK_SPACE && !letterBoxList.isEmpty() && letterBoxList.size() <= 5)
-        {
-            removeChild(currentRow-1, letterBoxList.size()-1);
-        }
-
-        if (keyCode.isLetterKey() && letterBoxList.size() <=4) {
-            Character currentLetter =  keyCode.getChar().charAt(0);
-            LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
-            letterBoxList.add(letterBox);
-            populateGrid(currentRow-1, letterBoxList.size()-1, letterBox);
-        }
-        if(keyCode == KeyCode.ENTER && letterBoxList.size() == 5
-        && currentRow <= 6) {
-            String userInput = getUserInput(letterBoxList);
-            userInput = userInput.toLowerCase();
-            if(wordRepository.exists(userInput) == true) {
-                winStatus = processInput(userInput);
-                currentRow += 1;
-                letterBoxList.clear();
-            }
-        }
+        processListener(keyCode);
     }
 
     @FXML
-    public void buttonListener(ActionEvent actionEvent) {
+    public void buttonListener(ActionEvent actionEvent) throws IOException {
         Object buttonSource = actionEvent.getSource();
         Button button = (Button) buttonSource;
         String buttonText = button.getText();
@@ -101,28 +81,65 @@ public class MainSceneController {
         }
         else{keyCode = KeyCode.valueOf(button.getText());}
 
+        processListener(keyCode);
+    }
 
+    private void processListener(KeyCode keyCode) throws IOException {
         if(keyCode == KeyCode.BACK_SPACE && !letterBoxList.isEmpty() && letterBoxList.size() <= 5)
         {
             removeChild(currentRow-1, letterBoxList.size()-1);
         }
 
-        if (keyCode.isLetterKey() && letterBoxList.size() <=4) {
+        if (keyCode.isLetterKey() && letterBoxList.size() <=4 && currentRow <=6) {
             Character currentLetter =  keyCode.getChar().charAt(0);
             LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
             letterBoxList.add(letterBox);
             populateGrid(currentRow-1, letterBoxList.size()-1, letterBox);
         }
+
         if(keyCode == KeyCode.ENTER && letterBoxList.size() == 5
                 && currentRow <= 6) {
             String userInput = getUserInput(letterBoxList);
             userInput = userInput.toLowerCase();
             if(wordRepository.exists(userInput) == true) {
                 winStatus = processInput(userInput);
+                wordleBoard.addWord(new UserGuess(userInput));
                 currentRow += 1;
                 letterBoxList.clear();
             }
         }
+        if(wordleBoard.isFull())
+        {
+            System.out.println("im full");
+            switchEndScene(winStatus);
+        }
+    }
+
+    private void switchEndScene(boolean winStatus) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/wordlemvp/GameFinishedDialog.fxml"));
+        Parent mainScreen = loader.load();
+        Stage secondaryStage = new Stage();
+        HBox rootHbox = new HBox();
+        rootHbox.getChildren().add(mainScreen);
+        HBox.setHgrow(rootHbox, Priority.ALWAYS);
+        Scene newScene = new Scene(rootHbox);
+        rootHbox.setAlignment(Pos.CENTER);
+        secondaryStage.setScene(newScene);
+        secondaryStage.setTitle("Game Finished");
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+
+        GameFinishedDialogController finishedDialogController = loader.getController();
+        Text winStatusText = finishedDialogController.getGameStatusText();
+        Text correctWordleWord = finishedDialogController.getWordAnswerText();
+        correctWordleWord.setText("Word was " + wordleAnswer.getString());
+        if(winStatus == true)
+        {
+            winStatusText.setText("Win");
+        }
+        else {winStatusText.setText("Game Over");}
+
+
+        secondaryStage.show();
     }
 
     private boolean processInput(String userInput)
@@ -239,5 +256,14 @@ public class MainSceneController {
         return buttonReferenceMap;
     }
 
+    private void restartScene()
+    {
+
+    }
+
+    private void saveSession()
+    {
+
+    }
 }
 
