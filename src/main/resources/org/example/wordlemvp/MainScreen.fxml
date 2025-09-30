@@ -88,8 +88,8 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1292.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#listenForSaveButton" text="Save" />
-                        <Button mnemonicParsing="false" text="Load Recent" />
+                        <Button fx:id="saveButton" focusTraversable="false" mnemonicParsing="false" onAction="#listenForSaveButton" text="Save" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#loadGameListener" text="Load Recent" />
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />

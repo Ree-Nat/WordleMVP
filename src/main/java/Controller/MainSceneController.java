@@ -1,7 +1,7 @@
 package Controller;
 import Model.*;
 import View.LetterBox;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,11 +19,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.awt.*;
+import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class MainSceneController {
 
@@ -116,6 +115,10 @@ public class MainSceneController {
         saveGame();
     }
 
+    public void loadGameListener(ActionEvent actionEvent) throws FileNotFoundException {
+        loadGame();
+    }
+
 
     private void saveGame() throws IOException {
         //create json class
@@ -139,9 +142,35 @@ public class MainSceneController {
         jsonwriter.close();
     }
 
-    private void loadGame()
-    {
+    private void loadGame() throws FileNotFoundException {
+        restartScene();
+        resetUIKeyboardColor();
 
+        String filePath = "src/main/resources/Savedata/save.json";
+        Gson gson = new Gson();
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        Object jsonFile = gson.fromJson(br, Object.class);
+
+        String result = jsonFile.toString();
+        JsonElement element = JsonParser.parseString(result);
+        JsonObject obj = element.getAsJsonObject();
+        Object entrys = obj.entrySet();
+        Map<String, String> entryMap = (Map<String, String>) entrys;
+        Collection<String> wordSet = (Collection<String>) entryMap.values();
+
+        for(String word: wordSet)
+        {
+            int currentIndex = 0;
+            letterBoxList.clear();
+            for(Character currentCharacter: word.toCharArray())
+            {
+                LetterBox newBox = new LetterBox(currentCharacter, LetterStatus.GREY);
+                letterBoxList.add(newBox);
+                populateGrid(currentIndex, wordleBoard.getCurrentSize()-1, newBox);
+                currentIndex+=1;
+            }
+            processInput(word);
+        }
     }
 
     private void reRollWordleWord()
