@@ -24,6 +24,7 @@ public class MainSceneController {
 
     @FXML
     public GridPane wordGridPane;
+    public Text inputMessage;
     @FXML
     private VBox keyboardBox;
 
@@ -102,6 +103,7 @@ public class MainSceneController {
         keyboard.resetKeyboardStatus();
         wordleBoard.resetBoard();
         currentRow = 1;
+        gameModel.resetGuess();
     }
 
     private void reRollWordleWord()
@@ -138,21 +140,37 @@ public class MainSceneController {
             populateGrid(currentRow-1, letterBoxList.size()-1, letterBox);
         }
 
-        if(keyCode == KeyCode.ENTER && letterBoxList.size() == 5
-                && currentRow <= 6) {
+        if(keyCode == KeyCode.ENTER && /*letterBoxList.size() == 5*/
+                 currentRow <= 6) {
             String userInput = getUserInput(letterBoxList);
             userInput = userInput.toLowerCase();
-            if(wordRepository.exists(userInput) == true) {
+            if(wordRepository.exists(userInput) == true && userInput.length() == 5) {
+                inputMessage.setText(""); //reset input message
                 winStatus = processInput(userInput);
                 wordleBoard.addWord(new UserGuess(userInput));
                 currentRow += 1;
                 letterBoxList.clear();
+                gameModel.increaseGuess();
+            }
+            else
+            {
+                processInputMismatch(userInput);
             }
         }
         if(wordleBoard.isFull() || winStatus == true)
         {
             System.out.println("im full");
             switchEndScene(winStatus);
+        }
+    }
+
+
+    private void processInputMismatch(String userInput){
+        if(userInput.length() < 5)
+        {
+            inputMessage.setText("String must be exactly 5 characters");
+        } else if(!wordRepository.exists(userInput)) {
+            inputMessage.setText(userInput + " does not exist in this game!");
         }
     }
 
