@@ -19,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -131,6 +130,7 @@ public class MainSceneController {
         JsonWriter jsonwriter = gson.create().newJsonWriter(bufferedWriter);
         int place = 0;
         jsonwriter.beginObject();
+        jsonwriter.name("WordleAnswer").value(this.wordleAnswer.getString());
         for(String word: userWordList)
         {
             jsonwriter.name(Integer.toString(place)).value(word);
@@ -145,6 +145,8 @@ public class MainSceneController {
     private void loadGame() throws FileNotFoundException {
         restartScene();
         resetUIKeyboardColor();
+        currentRow = 0;
+        letterBoxList.clear();
 
         String filePath = "src/main/resources/Savedata/save.json";
         Gson gson = new Gson();
@@ -154,23 +156,30 @@ public class MainSceneController {
         String result = jsonFile.toString();
         JsonElement element = JsonParser.parseString(result);
         JsonObject obj = element.getAsJsonObject();
-        Object entrys = obj.entrySet();
-        Map<String, String> entryMap = (Map<String, String>) entrys;
-        Collection<String> wordSet = (Collection<String>) entryMap.values();
+        List<String> wordList = new ArrayList<>();
+        String wordleAnswer_string = obj.get("WordleAnswer").getAsString();
+        this.wordleAnswer =  new WordleAnswer(wordleAnswer_string);
+        for(int size = 0; size < obj.size()-1; size+=1)
+        {
+            wordList.add(obj.get(Integer.toString(size)).getAsString());
+        }
 
-        for(String word: wordSet)
+        for(String word: wordList)
         {
             int currentIndex = 0;
-            letterBoxList.clear();
             for(Character currentCharacter: word.toCharArray())
             {
-                LetterBox newBox = new LetterBox(currentCharacter, LetterStatus.GREY);
-                letterBoxList.add(newBox);
-                populateGrid(currentIndex, wordleBoard.getCurrentSize()-1, newBox);
-                currentIndex+=1;
+                LetterBox newLetterBox = new LetterBox(currentCharacter, LetterStatus.GREY);
+                letterBoxList.add(newLetterBox);
+                populateGrid(currentRow, letterBoxList.size() -1, newLetterBox);
             }
+            wordleBoard.addWord(new UserGuess(word));
+            currentRow += 1;
+            gameModel.increaseGuess();
             processInput(word);
+            letterBoxList.clear();
         }
+        currentRow +=1;
     }
 
     private void reRollWordleWord()
