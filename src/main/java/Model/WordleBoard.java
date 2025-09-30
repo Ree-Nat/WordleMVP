@@ -43,4 +43,14 @@ public class WordleBoard {
         return wordGrid.size() == 6;
     }
 
+    public int getCurrentSize()
+    {
+        return wordGrid.size();
+    }
+
+    public ArrayList<String> getWordList()
+    {
+        return wordGrid;
+    }
+
 }

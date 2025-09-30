@@ -1,6 +1,8 @@
 package Controller;
 import Model.*;
 import View.LetterBox;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonWriter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 public class MainSceneController {
@@ -25,6 +30,7 @@ public class MainSceneController {
     @FXML
     public GridPane wordGridPane;
     public Text inputMessage;
+    public Button saveButton;
     @FXML
     private VBox keyboardBox;
 
@@ -104,6 +110,38 @@ public class MainSceneController {
         wordleBoard.resetBoard();
         currentRow = 1;
         gameModel.resetGuess();
+    }
+
+    public void listenForSaveButton(ActionEvent actionEvent) throws IOException {
+        saveGame();
+    }
+
+
+    private void saveGame() throws IOException {
+        //create json class
+        //get array and populate it with current words in this session
+        //output in new json file.
+
+        ArrayList<String> userWordList = wordleBoard.getWordList();
+        GsonBuilder gson = new GsonBuilder();
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/Savedata/save.json"));
+        JsonWriter jsonwriter = gson.create().newJsonWriter(bufferedWriter);
+        int place = 0;
+        jsonwriter.beginObject();
+        for(String word: userWordList)
+        {
+            jsonwriter.name(Integer.toString(place)).value(word);
+            place+=1;
+
+        }
+        jsonwriter.endObject();
+
+        jsonwriter.close();
+    }
+
+    private void loadGame()
+    {
+
     }
 
     private void reRollWordleWord()
@@ -322,9 +360,5 @@ public class MainSceneController {
 
 
 
-    private void saveSession()
-    {
-
-    }
 }
 
