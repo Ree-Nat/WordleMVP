@@ -407,11 +407,15 @@ public class MainSceneController {
              currentScene.getStylesheets().clear();
              currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/ColorBlind.css").toExternalForm());
              System.out.println(currentScene.getStylesheets());
+             recolorKeyboard();
          }
          else {
              currentScene.getStylesheets().clear();
              currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
+             recolorKeyboard();
          }
+
+
     }
 }
 

@@ -6,7 +6,25 @@
     -fx-alignment: "Center";
 }
 
+.letterBox_Grey
+{
+    -fx-fill: #9e9e9e;
+}
 
+.letterBox_Yellow
+{
+    -fx-fill: #30baa9;
+}
+
+.letterBox_Green
+{
+    -fx-fill: #ff6e18;
+}
+
+.letterBox_Black
+{
+    -fx-fill: #2b2b2b;
+}
 
 .buttonClass
 {
@@ -15,6 +33,7 @@
     -fx-color: #454545;
     -fx-padding: 10;
 }
+
 
 .YellowStatus
 {

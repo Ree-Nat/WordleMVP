@@ -22,15 +22,15 @@ public class LetterBox {
     public LetterBox(Character letter, LetterStatus letterStatus) {
 
         stackpane.getChildren().addAll(letterBox, textBox);
-        letterBox.setFill(Color.GREY);
+        letterBox.getStyleClass().add("letterBox_Grey");
         stackpane.setAlignment(Pos.CENTER);
         textBox.getStyleClass().add("letterbox_text");
         textBox.setText(letter.toString());
         switch (letterStatus) {
-            case GREEN ->  letterBox.setStyle("-fx-fill: #097809");
-            case YELLOW -> letterBox.setStyle("-fx-fill: #efd24b");
-            case GREY ->  letterBox.setStyle("-fx-fill: #919191");
-            case BLACK ->  letterBox.setStyle("-fx-fill: #202020");
+            case GREEN ->  letterBox.getStyleClass().add("letterBox_Green");
+            case YELLOW -> letterBox.getStyleClass().add("letterBox_Yellow");
+            case GREY ->  letterBox.getStyleClass().add("letterBox_Grey");
+            case BLACK ->  letterBox.getStyleClass().add("letterBox_Black");
         }
     }
 
