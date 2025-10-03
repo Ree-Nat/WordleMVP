@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -44,8 +45,6 @@ public class MainSceneController {
     private String userInput;
     private HashMap<Character, Button> buttonMapping;
     private final MainSceneController mainSceneController;
-    private long randomSeed;
-
 
 
     public MainSceneController() throws IOException {
@@ -57,7 +56,7 @@ public class MainSceneController {
         this.mainSceneController = this;
         long seed= System.currentTimeMillis();
         Random random = new Random(seed);
-        randomSeed = random.nextLong();
+        long randomSeed = random.nextLong();
         String randomWord = wordRepository.getRandomWord(randomSeed);
         this.wordleAnswer = new WordleAnswer(randomWord);
     }
@@ -397,6 +396,22 @@ public class MainSceneController {
     }
 
 
+    public void switchToColorBlind(ActionEvent actionEvent) {
+         Object buttonObject = actionEvent.getSource();
+         ToggleButton toggleButton = (ToggleButton) buttonObject;
 
+         Scene currentScene = toggleButton.getScene();
+         if(toggleButton.isSelected())
+         {
+             System.out.println(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
+             currentScene.getStylesheets().clear();
+             currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/ColorBlind.css").toExternalForm());
+             System.out.println(currentScene.getStylesheets());
+         }
+         else {
+             currentScene.getStylesheets().clear();
+             currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
+         }
+    }
 }
 

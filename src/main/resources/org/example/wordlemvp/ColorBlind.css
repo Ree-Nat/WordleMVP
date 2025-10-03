@@ -1,6 +1,6 @@
 
 .letterbox_text{
-  -fx-fill: White;
+    -fx-fill: White;
     -fx-font-size: 20;
     -fx-font: 16pt "Clear Sans";
     -fx-alignment: "Center";
@@ -20,7 +20,7 @@
 {
     -fx-text-fill: #ffffff;
     -fx-font: 16pt "Clear Sans";
-    -fx-color: #9f9b1d;
+    -fx-color: #98d8cd;
     -fx-padding: 10;
 }
 
@@ -28,7 +28,7 @@
 {
     -fx-text-fill: #ffffff;
     -fx-font: 16pt "Clear Sans";
-    -fx-color: #3b9127;
+    -fx-color: #ea5b1e;
     -fx-padding: 10;
 }
 
