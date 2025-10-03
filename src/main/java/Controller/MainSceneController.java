@@ -198,7 +198,6 @@ public class MainSceneController {
        {
            button.getStyleClass().clear();
            button.getStyleClass().add("button");
-           button.getStyleClass().add("buttonClass");
        }
     }
 
@@ -311,23 +310,21 @@ public class MainSceneController {
         {
             LetterStatus character_status = keyboardMap.get(character);
             Button currentButton = buttonMapping.get(character);
-            currentButton.getStyleClass().removeAll();
+            currentButton.getStyleClass().removeAll("GreenStatus", "YellowStatus", "BlackStatus");
             if(character_status == LetterStatus.GREEN)
             {
-                currentButton.getStyleClass().clear();
-                currentButton.getStyleClass().add("button");
+
+                //currentButton.getStyleClass().add("button");
                 currentButton.getStyleClass().add("GreenStatus");
             }
             else if(character_status == LetterStatus.YELLOW)
             {
-                currentButton.getStyleClass().clear();
-                currentButton.getStyleClass().add("button");
-                currentButton.getStyleClass().add(("YellowStatus"));
+                //currentButton.getStyleClass().add("button");
+                currentButton.getStyleClass().add("YellowStatus");
             }
             else if(character_status == LetterStatus.BLACK)
             {
-                currentButton.getStyleClass().clear();
-                currentButton.getStyleClass().add("button");
+                //currentButton.getStyleClass().add("button");
                 currentButton.getStyleClass().add("BlackStatus");
             }
 
@@ -407,14 +404,14 @@ public class MainSceneController {
              currentScene.getStylesheets().clear();
              currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/ColorBlind.css").toExternalForm());
              System.out.println(currentScene.getStylesheets());
-             recolorKeyboard();
+
+
          }
          else {
              currentScene.getStylesheets().clear();
              currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
-             recolorKeyboard();
          }
-
+        recolorKeyboard();
 
     }
 }

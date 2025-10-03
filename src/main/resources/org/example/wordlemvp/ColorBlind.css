@@ -13,12 +13,12 @@
 
 .letterBox_Yellow
 {
-    -fx-fill: #30baa9;
+    -fx-fill: #24d3c4;
 }
 
 .letterBox_Green
 {
-    -fx-fill: #ff6e18;
+    -fx-fill: #ff8327;
 }
 
 .letterBox_Black
@@ -26,28 +26,29 @@
     -fx-fill: #2b2b2b;
 }
 
-.buttonClass
+
+
+.button
 {
     -fx-text-fill: #ffffff;
     -fx-font: 5pt "Clear Sans";
-    -fx-color: #454545;
+    -fx-background-color: #454545;
     -fx-padding: 10;
 }
-
 
 .YellowStatus
 {
     -fx-text-fill: #ffffff;
-    -fx-font: 16pt "Clear Sans";
-    -fx-color: #98d8cd;
+    -fx-font: 5pt "Clear Sans";
+    -fx-background-color: #24d3c4;
     -fx-padding: 10;
 }
 
 .GreenStatus
 {
     -fx-text-fill: #ffffff;
-    -fx-font: 16pt "Clear Sans";
-    -fx-color: #ea5b1e;
+    -fx-font: 5pt "Clear Sans";
+    -fx-background-color: #ff8327;
     -fx-padding: 10;
 }
 
@@ -55,8 +56,8 @@
 .BlackStatus
 {
     -fx-text-fill: White;
-    -fx-font: 16pt "Clear Sans";
-    -fx-color: #2b2b2b;
+    -fx-font: 5pt "Clear Sans";
+    -fx-background-color: #2b2b2b;
     -fx-padding: 10;
 }
 
