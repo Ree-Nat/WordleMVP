@@ -45,17 +45,14 @@ public class Keyboard {
 
 
             if((keyLetterStatus == LetterStatus.GREY)
-            && (outputLetterStatus == LetterStatus.GREEN || outputLetterStatus == LetterStatus.YELLOW))
+            && (outputLetterStatus == LetterStatus.GREEN || outputLetterStatus == LetterStatus.YELLOW) || outputLetterStatus == LetterStatus.BLACK)
                 {
                     this.markStatus(currentLetter, outputLetterStatus);
                 }
-            else if(outputLetterStatus == LetterStatus.GREEN)
+            else if(outputLetterStatus == LetterStatus.GREEN &&
+                    (keyLetterStatus == LetterStatus.YELLOW))
             {
                 this.markStatus(currentLetter, LetterStatus.GREEN);
-            }
-            else if(outputLetterStatus == LetterStatus.BLACK && keyLetterStatus != LetterStatus.GREEN || keyLetterStatus!= LetterStatus.YELLOW)
-            {
-                this.markStatus(currentLetter, outputLetterStatus);
             }
         }
 
