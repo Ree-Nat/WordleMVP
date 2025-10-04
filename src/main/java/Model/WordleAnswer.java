@@ -5,14 +5,15 @@ import java.util.HashMap;
 public class WordleAnswer extends WordleWord{
 
 
-    public WordleAnswer(String input)
+    /**
+     * Creates a WordleAnswer object containing the answer to the wordle game
+     * @param answer a string representing the answer to the wordle game
+     */
+    public WordleAnswer(String answer)
     {
-        super(input);
+        super(answer);
     }
 
 
-    public HashMap<Integer, Character> getMapping() {
-        return stringMap;
-    }
 
 }

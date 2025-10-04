@@ -71,8 +71,10 @@
 }
 
 .toggle-switch {
-
-
+    -fx-text-fill: #ffffff;
+    -fx-font: 8pt "Clear Sans";
+    -fx-background-color: #454545;
+    -fx-padding: 10;
 }
 
 .toggle-switch:selected {

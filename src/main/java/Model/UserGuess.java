@@ -6,17 +6,30 @@ public class UserGuess extends WordleWord {
 
     private boolean matches;
 
+    /**
+     * creates a UserGuess object
+     * @param input A string containing the user's guess.
+     */
     public UserGuess(String input)
     {
         super(input);
         matches = false;
     }
 
+    /**
+     * returns the string representation of user guess
+     * @return a string containing the user's guess
+     */
     public String getUserGuess()
     {
         return input;
     }
 
+    /**
+     * Checks if User guess equals to the wordle word
+     * @param answer an WordleAnswer object containing the answer to the wordle game
+     * @return a boolean that tells if the word guess matches with the answer.
+     */
     public boolean equals(WordleAnswer answer)
     {
         String answerWord = answer.getString().toUpperCase();
@@ -31,6 +44,13 @@ public class UserGuess extends WordleWord {
     }
 
     //returns an array of status to put in gui
+
+    /**
+     * gets the color hashMap corresponding the index of the column on the board and
+     * the letter
+     * @param answer a WordleAnswer object containing the answer to the wordle game.
+     * @return a hashmap corresponding the index of the column on the board and the letter
+     */
     public HashMap<Integer, LetterStatus> getColorMap(WordleAnswer answer)
     {
         HashMap<Integer, Character> guessMap = this.getStringMap();

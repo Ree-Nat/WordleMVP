@@ -1,57 +1,77 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class WordleBoard {
-    int MAX_ROWS = 6;
-    ArrayList<String> wordGrid;
+public class WordleBoard{
+    private final int MAX_ROWS = 6;
+    ArrayList<String> wordList;
 
 
+    /**
+     * Creates a wordle board object containing an arraylist populated
+     * by the user's guess
+     */
     public WordleBoard()
     {
-        wordGrid = new ArrayList<String>();
+        wordList = new ArrayList<String>();
     }
 
+    /**
+     * Adds a word to the word list
+     * @param guess a string to be added to the wordlist
+     */
     public void addWord(UserGuess guess)
     {
         String guess_word = guess.getUserGuess();
-        wordGrid.add(guess_word);
+        wordList.add(guess_word);
 
     }
 
 
-    public String getRow(int index)
-    {
-        int search_index = index - 1;
-        return wordGrid.get(search_index);
-    }
 
-    public void clearBoard()
-    {
-        for(int x = 0; x < wordGrid.toArray().length; x++)
-        {
-            wordGrid.removeFirst();
-        }
-    }
-
+    /**
+     * Resets the board list
+     */
     public void resetBoard()
     {
-        wordGrid.clear();
+        wordList.clear();
     }
 
+    /**
+     * Checks to see if board is full
+     * @return a boolean representing if the board is full
+     */
     public boolean isFull()
     {
-        return wordGrid.size() == 6;
+        return wordList.size() == 6;
     }
 
+    /**
+     * Gets current size of board
+     * @return a int representing the current size of the board
+     */
     public int getCurrentSize()
     {
-        return wordGrid.size();
+        return wordList.size();
     }
 
+    /**
+     * gets an arraylist corresponding the current items on the board
+     * @return an arraylist corresponding the current items on the board
+     */
     public ArrayList<String> getWordList()
     {
-        return wordGrid;
+        return wordList;
+    }
+
+    /**
+     * Gets the maximum size of the board
+     * @return an int corresponding the maximum size of the board.
+     */
+    public int getMaxSize()
+    {
+        return MAX_ROWS;
     }
 
 }

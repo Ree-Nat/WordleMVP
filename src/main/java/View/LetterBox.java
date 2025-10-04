@@ -19,6 +19,11 @@ public class LetterBox {
     Rectangle letterBox = new Rectangle(50,50);
     private final Text textBox = new Text();
 
+    /**
+     * Creates a letterbox UI element object that is fitted in a stackpane to be added to a grid pane
+     * @param letter a Character that the letterbox will have in the gridpane
+     * @param letterStatus the status of current letter corresponding to how it will be colored
+     */
     public LetterBox(Character letter, LetterStatus letterStatus) {
 
         stackpane.getChildren().addAll(letterBox, textBox);
@@ -34,9 +39,18 @@ public class LetterBox {
         }
     }
 
+    /**
+     * Gets character of letter box
+     * @return a character that corresponds to the letter in the box
+     */
     public Character getLetterBoxCharacter() {
         return textBox.getText().charAt(0);
     }
 
+    /**
+     * Gets the stack pane container of the letter box to be added to the Grid pane.
+     * We use a stack pane to help with centering the content
+     * @return a stack pane object containing the letterbox
+     */
     public StackPane getLetterBoxContainer() {return stackpane;}
 }

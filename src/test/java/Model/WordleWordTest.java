@@ -62,7 +62,7 @@ class WordleWordTest {
                 LetterStatus.GREEN, LetterStatus.GREEN,
                 LetterStatus.YELLOW, LetterStatus.YELLOW};
 
-        HashMap<Integer, LetterStatus> colorMap = guess.compare(answer);
+        HashMap<Integer, LetterStatus> colorMap = guess.getColorMap(answer);
         //Collections answerColorValues = (Collections) colorMap.values();
         System.out.println(colorMap);
 

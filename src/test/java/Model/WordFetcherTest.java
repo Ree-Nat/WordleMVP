@@ -1,6 +1,5 @@
 package Model;
 
-import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -17,12 +16,12 @@ class WordFetcherTest {
     @Test
     void PopulateWordList() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
-        WordList fetcherGenerator = new WordList(filepath);
+        WordRepository fetcherGenerator = new WordRepository(filepath);
     }
 
     void CheckWordMapSize() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
-        WordList fetcherGenerator = new WordList(filepath);
+        WordRepository fetcherGenerator = new WordRepository(filepath);
         int wordListSize = fetcherGenerator.getSize();
         assertEquals(15917, wordListSize);
     }
@@ -30,7 +29,7 @@ class WordFetcherTest {
     @Test
     void CheckWordExists() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
-        WordList fetcherGenerator = new WordList(filepath);
+        WordRepository fetcherGenerator = new WordRepository(filepath);
         UserGuess guessWord = new UserGuess("rabid");
         boolean exists = fetcherGenerator.exists(guessWord);
         assertTrue(exists);

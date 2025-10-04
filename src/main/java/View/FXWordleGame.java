@@ -17,6 +17,11 @@ public class FXWordleGame extends Application {
 
     HBox hbox = new HBox();
 
+    /**
+     * Starts the main scene of the wordle game
+     * @param primaryStage a Stage object
+     * @throws Exception if file path does not exist
+     */
     public void start(Stage primaryStage) throws Exception {
 
         try {

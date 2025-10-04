@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * an enum class corresponding to the status of a wordle character
+ */
 public enum LetterStatus{
     YELLOW,
     GREEN,

@@ -10,20 +10,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class WordList {
+public class WordRepository {
 
     private HashMap<Integer, String> wordMap;
     private Set<String> wordSet;
     private int seed;
     private int size;
 
-    public WordList(String filePath) throws IOException {
+    /**
+     * Creates a Wordle repository object containing the possible words in the wordle game
+     * @param filePath a string that leads to a json file containing the possible words
+     * @throws IOException if filePath does not exist or file
+     */
+    public WordRepository(String filePath) throws IOException {
         wordMap = new HashMap<>();
         wordSet = new HashSet<>();
         populateList(filePath);
     }
 
 
+    /**
+     * Populates the repository's word list into a set for easy access
+     * @param filePath a string that leads to a json file containing the possible words
+     * @throws IOException if filePath does not exist or file
+     */
     public void populateList(String filePath) throws IOException {
         Gson gson = new Gson();
         BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -48,17 +58,31 @@ public class WordList {
 
     }
 
+    /**
+     * checks to see if word exists in the repository
+     * @param word a User guess containing the word to be found
+     * @return a boolean true if the word exists.
+     */
     public Boolean exists(UserGuess word)
     {
         String guessWord = word.getString();
         return wordSet.contains(guessWord);
     }
 
+    /**
+     * checks to see if string word exists in the repository
+     * @param word a string containing the word to be found
+     * @return a boolean true if the word exists.
+     */
     public Boolean exists(String word)
     {
         return wordSet.contains(word.toLowerCase());
     }
 
+    /**
+     * Gets a random word from the repository using system time
+     * @return a String object representing the random word
+     */
     public String getRandomWord()
     {
         long seed = System.currentTimeMillis();
@@ -67,19 +91,23 @@ public class WordList {
         return wordMap.get(randomInt);
     }
 
+    /**
+     * Gets size of repository
+     * @return int repository size
+     */
     public int getSize()
     {
         return size;
     }
 
-    public void setWordMap(HashMap<Integer, String> wordMap)
+    /**
+     * Sets current word map of current object
+     * @param wordMap a wordmap to set to object's data
+     */
+    private void setWordMap(HashMap<Integer, String> wordMap)
     {
         this.wordMap = wordMap;
     }
 
-    public void setWordSet(Set<String> wordSet)
-    {
-        this.wordSet = wordSet;
-    }
 
 }
