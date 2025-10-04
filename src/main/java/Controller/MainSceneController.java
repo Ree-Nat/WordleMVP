@@ -34,7 +34,6 @@ public class MainSceneController {
     private VBox keyboardBox;
 
     List<LetterBox> inputBuffer = new ArrayList<>();
-    private int currentRow = 1;
     private final Keyboard keyboard;
     private final WordleBoard wordleBoard;
     private final GameModel gameModel;
@@ -98,15 +97,16 @@ public class MainSceneController {
         resetUIKeyboardColor();
         keyboard.resetKeyboardStatus();
         wordleBoard.resetBoard();
-        currentRow = 1;
         gameModel.resetGuess();
     }
 
     public void listenForSaveButton(ActionEvent actionEvent) throws IOException {
+        inputMessage.setText("Game saved");
         saveGame();
     }
 
     public void loadGameListener(ActionEvent actionEvent) throws FileNotFoundException {
+        inputMessage.setText("Loaded game");
         loadGame();
     }
 
@@ -137,7 +137,7 @@ public class MainSceneController {
     private void loadGame() throws FileNotFoundException {
         restartScene();
         resetUIKeyboardColor();
-        currentRow = 0;
+        wordleBoard.clearBoard();
         inputBuffer.clear();
 
         String filePath = "src/main/resources/Savedata/save.json";
@@ -160,17 +160,15 @@ public class MainSceneController {
         {
             for(Character currentCharacter: word.toCharArray())
             {
+
                 LetterBox newLetterBox = new LetterBox(currentCharacter, LetterStatus.GREY);
                 inputBuffer.add(newLetterBox);
-                populateGrid(currentRow, inputBuffer.size() -1, newLetterBox);
             }
-            wordleBoard.addWord(new UserGuess(word));
-            currentRow += 1;
-            gameModel.increaseGuess();
             processInput(word);
+            wordleBoard.addWord(new UserGuess(word));
+            gameModel.increaseGuess();
             inputBuffer.clear();
         }
-        currentRow +=1;
     }
 
     private void reRollWordleWord()
@@ -195,21 +193,20 @@ public class MainSceneController {
             removeLastGridChild();
         }
 
-        if (keyCode.isLetterKey() && inputBuffer.size() <=4 && currentRow <=6) {
+        if (keyCode.isLetterKey() && inputBuffer.size() <=4 && wordleBoard.getCurrentSize() <=6) {
             Character currentLetter =  keyCode.getChar().charAt(0);
             LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
             inputBuffer.add(letterBox);
-            populateGrid(currentRow-1, inputBuffer.size()-1, letterBox);
+            populateGrid(wordleBoard.getCurrentSize(), inputBuffer.size()-1, letterBox);
         }
 
         if(keyCode == KeyCode.ENTER && /*inputBuffer.size() == 5*/
-                 currentRow <= 6) {
+                wordleBoard.getCurrentSize() <= 6) {
             String userInput = getUserInput(inputBuffer);
             if(wordRepository.exists(userInput) == true && userInput.length() == 5) {
                 inputMessage.setText(""); //reset input message
                 winStatus = processInput(userInput);
                 wordleBoard.addWord(new UserGuess(userInput));
-                currentRow += 1;
                 inputBuffer.clear();
                 gameModel.increaseGuess();
             }
@@ -279,7 +276,7 @@ public class MainSceneController {
             Character currentCharacter = userInput.charAt(index-1);
             LetterBox newLetterBox = new LetterBox(currentCharacter, color_map.get(index-1));
             wordGridPane.getChildren().remove(LetterBoxNode.getLetterBoxContainer());
-            wordGridPane.add(newLetterBox.getLetterBoxContainer(), index-1, currentRow-1);
+            wordGridPane.add(newLetterBox.getLetterBoxContainer(), index-1, wordleBoard.getCurrentSize());
             index+=1;
         }
         recolorKeyboard();

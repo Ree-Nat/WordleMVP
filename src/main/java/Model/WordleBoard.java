@@ -19,6 +19,7 @@ public class WordleBoard {
 
     }
 
+
     public String getRow(int index)
     {
         int search_index = index - 1;
