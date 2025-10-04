@@ -31,7 +31,13 @@ public class GameFinishedDialogController {
 
     }
 
-    //
+    /**
+     * Gets necessary variables from main scene once main game ends
+     * @param winStatus a boolean
+     * @param answer a WordleWord object
+     * @param mainSceneController a MainSceneController object
+     * @param gameEndStage a GameEndStage object
+     */
     public void getFromController(boolean winStatus, WordleAnswer answer, MainSceneController mainSceneController, Stage gameEndStage)
     {
         this.winStatus = winStatus;
@@ -43,6 +49,9 @@ public class GameFinishedDialogController {
         processResult();
     }
 
+    /**
+     * Process end game result from controller's variable
+     */
     public void processResult()
     {
         if(winStatus){
@@ -55,12 +64,21 @@ public class GameFinishedDialogController {
         wordAnswerText.setText("Wordle Answer was: " + answer.getString());
     }
 
+    /**
+     * Sets the stage of the controller
+     * @param stage
+     */
     public void setStage(Stage stage)
     {
         this.dialogStage = stage;
     }
 
 
+    /**
+     * Restarts the game from the main controller class
+     * @param actionEvent an ActionEvent object
+     * @throws IOException if main scene does not exist
+     */
     public void restartGame(ActionEvent actionEvent) throws IOException {
         mainScreenController.restartScene();
         dialogStage.close();
