@@ -300,25 +300,9 @@ public class MainSceneController {
         Scene newScene = new Scene(rootHbox);
         rootHbox.setAlignment(Pos.CENTER);
         secondaryStage.setScene(newScene);
-        secondaryStage.setTitle("Game Finished");
-        secondaryStage.initModality(Modality.APPLICATION_MODAL);
-
         GameFinishedDialogController finishedDialogController = loader.getController();
-
-
-        Text winStatusText = finishedDialogController.getGameStatusText();
-        Text correctWordleWord = finishedDialogController.getWordAnswerText();
-        finishedDialogController.setMainScreenController(mainSceneController);
+        finishedDialogController.getFromController(winStatus, wordleAnswer, this.mainSceneController, secondaryStage);
         finishedDialogController.setStage(secondaryStage);
-
-        correctWordleWord.setText("Word was " + wordleAnswer.getString());
-        if(winStatus == true)
-        {
-            winStatusText.setText("Win");
-        }
-        else {winStatusText.setText("Game Over");}
-
-
         secondaryStage.show();
     }
 

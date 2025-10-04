@@ -84,6 +84,4 @@ public class UserGuess extends WordleWord {
         }
         return result;
     }
-
-
 }
