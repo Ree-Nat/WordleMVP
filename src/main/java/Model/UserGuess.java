@@ -19,8 +19,8 @@ public class UserGuess extends WordleWord {
 
     public boolean equals(WordleAnswer answer)
     {
-        String answerWord = answer.getString();
-        String guessWord = this.getString();
+        String answerWord = answer.getString().toUpperCase();
+        String guessWord = this.getString().toUpperCase();
 
         return answerWord.equals(guessWord);
     }
@@ -31,7 +31,7 @@ public class UserGuess extends WordleWord {
     }
 
     //returns an array of status to put in gui
-    public HashMap<Integer, LetterStatus> compare(WordleAnswer answer)
+    public HashMap<Integer, LetterStatus> getColorMap(WordleAnswer answer)
     {
         HashMap<Integer, Character> guessMap = this.getStringMap();
         HashMap<Integer, Character> answerMapClone =  new HashMap<>(answer.getStringMap());

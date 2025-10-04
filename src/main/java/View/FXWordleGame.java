@@ -20,7 +20,6 @@ public class FXWordleGame extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         try {
-            //load windows
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/wordlemvp/MainScreen.fxml"));
             Parent mainScreen = loader.load();
             hbox.getChildren().add(mainScreen);
@@ -33,9 +32,8 @@ public class FXWordleGame extends Application {
             primaryStage.setHeight(1080);
             hbox.setBackground(Background.fill(Color.web("#292929")));
             primaryStage.setTitle("Wordle MVP");
-            //create game object.
             primaryStage.show();
-        }
+        }   
         catch (Exception e) {
             e.printStackTrace();
         }

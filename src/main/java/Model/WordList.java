@@ -39,7 +39,7 @@ public class WordList {
 
         int index = 1;
         for (String word : wordSet){
-            tmpWordMap.put(index, word);
+            tmpWordMap.put(index, word.toUpperCase());
             index++;
         }
         setWordMap(tmpWordMap);
@@ -56,11 +56,12 @@ public class WordList {
 
     public Boolean exists(String word)
     {
-        return wordSet.contains(word);
+        return wordSet.contains(word.toLowerCase());
     }
 
-    public String getRandomWord(long seed)
+    public String getRandomWord()
     {
+        long seed = System.currentTimeMillis();
         Random rand = new Random(seed);
         int randomInt = rand.nextInt(size - 1 + 1) + 1;
         return wordMap.get(randomInt);

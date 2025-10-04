@@ -43,8 +43,10 @@ public class Keyboard {
             LetterStatus keyLetterStatus = keyMap.get(currentLetter);
             LetterStatus outputLetterStatus = colorMap.get(index);
 
-
-            if((keyLetterStatus == LetterStatus.GREY)
+            if ((keyLetterStatus == LetterStatus.GREEN || keyLetterStatus == LetterStatus.YELLOW) && outputLetterStatus == LetterStatus.BLACK){
+                this.markStatus(currentLetter, keyLetterStatus);
+            }
+            else if((keyLetterStatus == LetterStatus.GREY)
             && (outputLetterStatus == LetterStatus.GREEN || outputLetterStatus == LetterStatus.YELLOW) || outputLetterStatus == LetterStatus.BLACK)
                 {
                     this.markStatus(currentLetter, outputLetterStatus);

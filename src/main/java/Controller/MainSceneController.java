@@ -33,16 +33,14 @@ public class MainSceneController {
     @FXML
     private VBox keyboardBox;
 
-    List<LetterBox> letterBoxList = new ArrayList<>();
+    List<LetterBox> inputBuffer = new ArrayList<>();
     private int currentRow = 1;
-    private WordleWord currentUserInput;
     private final Keyboard keyboard;
     private final WordleBoard wordleBoard;
     private final GameModel gameModel;
     private final WordList wordRepository; //letterBoxList;
     private Boolean winStatus;
     private WordleAnswer wordleAnswer;
-    private String userInput;
     private HashMap<Character, Button> buttonMapping;
     private final MainSceneController mainSceneController;
 
@@ -54,11 +52,7 @@ public class MainSceneController {
         wordRepository = new WordList("src/main/resources/Valid_Wordle_Words.json");
         gameModel = new GameModel();
         this.mainSceneController = this;
-        long seed= System.currentTimeMillis();
-        Random random = new Random(seed);
-        long randomSeed = random.nextLong();
-        String randomWord = wordRepository.getRandomWord(randomSeed);
-        this.wordleAnswer = new WordleAnswer(randomWord);
+        this.wordleAnswer = new WordleAnswer(wordRepository.getRandomWord());
     }
 
     @FXML
@@ -95,11 +89,10 @@ public class MainSceneController {
     public void restartScene()
     {
         System.out.println(wordGridPane.getChildren());
-        ObservableList<Node> gridNodes = wordGridPane.getChildren();
         // safe removal
         wordGridPane.getChildren().removeIf(item -> item instanceof StackPane);
-        for(int i = 0; i < letterBoxList.toArray().length; i++){
-            letterBoxList.removeLast();
+        for(int i = 0; i < inputBuffer.toArray().length; i++){
+            inputBuffer.removeLast();
         }
         reRollWordleWord();
         resetUIKeyboardColor();
@@ -145,7 +138,7 @@ public class MainSceneController {
         restartScene();
         resetUIKeyboardColor();
         currentRow = 0;
-        letterBoxList.clear();
+        inputBuffer.clear();
 
         String filePath = "src/main/resources/Savedata/save.json";
         Gson gson = new Gson();
@@ -165,30 +158,25 @@ public class MainSceneController {
 
         for(String word: wordList)
         {
-            int currentIndex = 0;
             for(Character currentCharacter: word.toCharArray())
             {
                 LetterBox newLetterBox = new LetterBox(currentCharacter, LetterStatus.GREY);
-                letterBoxList.add(newLetterBox);
-                populateGrid(currentRow, letterBoxList.size() -1, newLetterBox);
+                inputBuffer.add(newLetterBox);
+                populateGrid(currentRow, inputBuffer.size() -1, newLetterBox);
             }
             wordleBoard.addWord(new UserGuess(word));
             currentRow += 1;
             gameModel.increaseGuess();
             processInput(word);
-            letterBoxList.clear();
+            inputBuffer.clear();
         }
         currentRow +=1;
     }
 
     private void reRollWordleWord()
     {
-        Random randomGenerator = new Random();
-        Long randomLong = randomGenerator.nextLong();
-        String newStringAnswer = wordRepository.getRandomWord(randomLong);
-        wordleAnswer = new WordleAnswer(newStringAnswer);
+        wordleAnswer = new WordleAnswer(wordRepository.getRandomWord());
         winStatus = false;
-
     }
 
     private void resetUIKeyboardColor()
@@ -202,28 +190,27 @@ public class MainSceneController {
     }
 
     private void processListener(KeyCode keyCode) throws IOException {
-        if(keyCode == KeyCode.BACK_SPACE && !letterBoxList.isEmpty() && letterBoxList.size() <= 5)
+        if(keyCode == KeyCode.BACK_SPACE && !inputBuffer.isEmpty() && inputBuffer.size() <= 5)
         {
-            removeChild(currentRow-1, letterBoxList.size()-1);
+            removeLastGridChild();
         }
 
-        if (keyCode.isLetterKey() && letterBoxList.size() <=4 && currentRow <=6) {
+        if (keyCode.isLetterKey() && inputBuffer.size() <=4 && currentRow <=6) {
             Character currentLetter =  keyCode.getChar().charAt(0);
             LetterBox letterBox = new LetterBox(currentLetter, LetterStatus.GREY);
-            letterBoxList.add(letterBox);
-            populateGrid(currentRow-1, letterBoxList.size()-1, letterBox);
+            inputBuffer.add(letterBox);
+            populateGrid(currentRow-1, inputBuffer.size()-1, letterBox);
         }
 
-        if(keyCode == KeyCode.ENTER && /*letterBoxList.size() == 5*/
+        if(keyCode == KeyCode.ENTER && /*inputBuffer.size() == 5*/
                  currentRow <= 6) {
-            String userInput = getUserInput(letterBoxList);
-            userInput = userInput.toLowerCase();
+            String userInput = getUserInput(inputBuffer);
             if(wordRepository.exists(userInput) == true && userInput.length() == 5) {
                 inputMessage.setText(""); //reset input message
                 winStatus = processInput(userInput);
                 wordleBoard.addWord(new UserGuess(userInput));
                 currentRow += 1;
-                letterBoxList.clear();
+                inputBuffer.clear();
                 gameModel.increaseGuess();
             }
             else
@@ -282,18 +269,15 @@ public class MainSceneController {
 
     private boolean processInput(String userInput)
     {
-        List<LetterBox> outputLetterBox = this.letterBoxList;
         UserGuess newUserGuess = new UserGuess(userInput);
-        HashMap<Integer,LetterStatus> color_map = newUserGuess.compare(wordleAnswer);
+        HashMap<Integer,LetterStatus> color_map = newUserGuess.getColorMap(wordleAnswer);
         keyboard.updateKeyboardStatus(color_map, newUserGuess);
-        String processedInput = userInput.toUpperCase();
         winStatus = newUserGuess.equals(wordleAnswer);
         int index = 1;
-        for(LetterBox LetterBoxNode : letterBoxList)
+        for(LetterBox LetterBoxNode : inputBuffer)
         {
-            Character currentCharacter = processedInput.charAt(index-1);
+            Character currentCharacter = userInput.charAt(index-1);
             LetterBox newLetterBox = new LetterBox(currentCharacter, color_map.get(index-1));
-            int removedPlace = wordGridPane.getChildren().indexOf(LetterBoxNode.getLetterBoxContainer());
             wordGridPane.getChildren().remove(LetterBoxNode.getLetterBoxContainer());
             wordGridPane.add(newLetterBox.getLetterBoxContainer(), index-1, currentRow-1);
             index+=1;
@@ -331,18 +315,12 @@ public class MainSceneController {
         }
     }
 
-    private boolean checkWin(HashMap<Integer, LetterStatus> output)
-    {
-        LetterStatus[] colors = LetterStatus.values();
-        List<LetterStatus> letterList = new ArrayList<>(Arrays.asList(colors));
-        return !letterList.contains(LetterStatus.YELLOW) && !letterList.contains(LetterStatus.BLACK);
-    }
 
 
-    private String getUserInput(List<LetterBox> letterBoxList)
+    private String getUserInput(List<LetterBox> inputBuffer)
     {
         StringBuilder userInput = new StringBuilder();
-        for(LetterBox LetterBoxNode : letterBoxList)
+        for(LetterBox LetterBoxNode : inputBuffer)
         {
             Character currentCharacter = LetterBoxNode.getLetterBoxCharacter();
             userInput.append(currentCharacter);
@@ -357,9 +335,12 @@ public class MainSceneController {
         wordGridPane.add(newTextLetter, col, row);
     }
 
-    private void removeChild(int row, int col)
+    /**
+     * Removes child based on where it is in the grid pane
+     */
+    private void removeLastGridChild()
     {
-        LetterBox removedChild = letterBoxList.removeLast();
+        LetterBox removedChild = inputBuffer.removeLast();
         StackPane removedChild_pane = removedChild.getLetterBoxContainer();
         ObservableList<Node> nodeList = wordGridPane.getChildren();
         nodeList.remove(removedChild_pane);
@@ -392,7 +373,9 @@ public class MainSceneController {
         return buttonReferenceMap;
     }
 
-
+    /*
+    changes main scene UI to colorblind mode by switching style sheets
+     */
     public void switchToColorBlind(ActionEvent actionEvent) {
          Object buttonObject = actionEvent.getSource();
          ToggleButton toggleButton = (ToggleButton) buttonObject;
@@ -400,12 +383,8 @@ public class MainSceneController {
          Scene currentScene = toggleButton.getScene();
          if(toggleButton.isSelected())
          {
-             System.out.println(getClass().getResource("/org/example/wordlemvp/MainScreen.css").toExternalForm());
              currentScene.getStylesheets().clear();
              currentScene.getStylesheets().add(getClass().getResource("/org/example/wordlemvp/ColorBlind.css").toExternalForm());
-             System.out.println(currentScene.getStylesheets());
-
-
          }
          else {
              currentScene.getStylesheets().clear();

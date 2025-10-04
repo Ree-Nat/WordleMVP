@@ -14,7 +14,7 @@ public abstract class WordleWord {
             throw new IllegalArgumentException("Wordle String should be of length 5, " +
                     " Curren length is " + input.length());
         }
-        this.input = input;
+        this.input = input.toUpperCase();
         this.stringMap = new HashMap<Integer, Character>();
 
         for(int index = 1; index <= MAX_LENGTH; index++)
