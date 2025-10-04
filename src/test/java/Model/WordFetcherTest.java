@@ -19,11 +19,12 @@ class WordFetcherTest {
         WordRepository fetcherGenerator = new WordRepository(filepath);
     }
 
+    @Test
     void CheckWordMapSize() throws IOException {
         String filepath = "src/main/resources/Valid_Wordle_Words.json";
         WordRepository fetcherGenerator = new WordRepository(filepath);
         int wordListSize = fetcherGenerator.getSize();
-        assertEquals(15917, wordListSize);
+        assertEquals(15918, wordListSize);
     }
 
     @Test

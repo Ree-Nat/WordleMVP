@@ -112,8 +112,6 @@ public class MainSceneController {
      */
     public void restartScene()
     {
-        System.out.println(wordGridPane.getChildren());
-        // safe removal
         wordGridPane.getChildren().removeIf(item -> item instanceof StackPane);
         for(int i = 0; i < inputBuffer.toArray().length; i++){
             inputBuffer.removeLast();
@@ -147,14 +145,10 @@ public class MainSceneController {
 
 
     /**
-     * Saves current game into a json file by
+     * Saves current game into a json file by parsing json save file
      * @throws IOException
      */
     private void saveGame() throws IOException {
-        //create json class
-        //get array and populate it with current words in this session
-        //output in new json file.
-
         ArrayList<String> userWordList = wordleBoard.getWordList();
         GsonBuilder gson = new GsonBuilder();
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/Savedata/save.json"));
@@ -264,7 +258,6 @@ public class MainSceneController {
         }
         if(gameModel.reachMaxGuess() || winStatus == true)
         {
-            System.out.println("im full");
             switchEndScene(winStatus);
         }
     }

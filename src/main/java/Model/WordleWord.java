@@ -52,8 +52,6 @@ public abstract class WordleWord {
            int character_count = amount_of_letters.get(character);
            amount_of_letters.put(character, character_count + 1);
         }
-        System.out.println(amount_of_letters);
-
         return amount_of_letters;
     }
 
