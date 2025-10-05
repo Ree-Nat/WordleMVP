@@ -1,5 +1,8 @@
 # Wordle Clone MVP
 
+## Video Demo 
+- https://www.youtube.com/watch?v=jYxHkdUorJo
+
 ## Team Members
 - Nathan Rinon (Ree-Nat)
 
