@@ -1,13 +1,13 @@
 # Wordle Clone MVP
 
 ## Video Demo 
-- https://www.youtube.com/watch?v=jYxHkdUorJo
-
+- https://www.youtube.com/watch?v=-O5M_MNvSdI&feature=youtu.be
+  
 ## Team Members
 - Nathan Rinon (Ree-Nat)
 
 ## How to Run
-1. Clone repository: `git clone git@github.com:Ree-Nat/WordleMVP.git`
+1. Download or Clone repository: `git clone git@github.com:Ree-Nat/WordleMVP.git`
 2. Open in IntelliJ
 3. [If JavaFX] Configure VM options: `--module-path [path] --add-modules javafx.controls`
 4. Go to src/main/java/org/example/wordlemvp
