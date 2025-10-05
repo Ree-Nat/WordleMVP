@@ -66,7 +66,7 @@ public class WordRepository {
     public Boolean exists(UserGuess word)
     {
         String guessWord = word.getString();
-        return wordSet.contains(guessWord);
+        return wordSet.contains(guessWord.toLowerCase());
     }
 
     /**
