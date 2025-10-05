@@ -1,6 +1,6 @@
 # Wordle Clone MVP
 
-##Video Demo 
+## Video Demo 
 - https://www.youtube.com/watch?v=jYxHkdUorJo
 
 ## Team Members
