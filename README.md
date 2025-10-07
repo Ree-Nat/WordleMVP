@@ -10,8 +10,9 @@
 1. Download or Clone repository: `git clone git@github.com:Ree-Nat/WordleMVP.git`
 2. Open in IntelliJ
 3. [If JavaFX] Configure VM options: `--module-path [path] --add-modules javafx.controls`
-4. Go to src/main/java/org/example/wordlemvp
-5. Run `Launcher.java`
+   -Note 'Uses maven to build on pom.xml dependancy, likely does not need VM options'
+5. Go to src/main/java/org/example/wordlemvp
+6. Run `Launcher.java`
 
 ## Features Implemented
 - Save and load feature: Allows previous game to be saved and load
